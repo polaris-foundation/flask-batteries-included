@@ -1,0 +1,98 @@
+[tool.poetry]
+name = "flask-batteries-included"
+version = "3.1.1"
+description = "Sensyne Health : Flask Batteries Included"
+authors = ["Rob Grant <rob.grant@sensynehealth.com>"]
+keywords = ["Flask"]
+repository = "https://github.com/draysontechnologies/flask-batteries-included"
+
+[[tool.poetry.source]]
+name = "sensynehealth"
+url = "https://pypi.fury.io/sensynehealth/"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+apispec = "5.*"
+dhos-redis = "1.*"
+environs = "9.*"
+Flask = "2.*"
+Flask-Log-Request-Id = "0.*"
+healthcheck = "1.*"
+marshmallow = "3.*"
+prometheus-client = "0.*"
+python-jose = "3.*"
+requests = "2.*"
+she-logging = "1.*"
+waitress = "2.*"
+
+# Optional extra: pgsql
+Flask-Migrate = { version = "3.*", optional = true }
+Flask-SQLAlchemy = { version = "2.*", optional = true }
+psycopg2-binary = { version = "2.*", optional = true }
+
+# Optional extra: apispec
+apispec-webframeworks = { version = "0.*", optional = true }
+connexion = {extras = ["swagger-ui"], version = "2.*", optional = true}
+
+
+[tool.poetry.dev-dependencies]
+bandit = "*"
+black = "*"
+coloredlogs = "*"
+coverage = "*"
+isort = "*"
+mypy = "*"
+pytest = "*"
+pytest-dhos = { version = "*", extras=["fbi"] }
+pytest-flask = "*"
+pytest-mock = "*"
+requests-mock = "*"
+safety = "*"
+tox = "*"
+types-requests = "*"
+types-PyYAML = "*"
+
+[tool.poetry.extras]
+apispec = ["apispec-webframeworks", "connexion"]
+pgsql = ["Flask-Migrate", "Flask-SQLAlchemy", "psycopg2-binary"]
+
+[tool.mypy]
+namespace_packages=true
+ignore_missing_imports=false
+disallow_untyped_defs=true
+
+[[tool.mypy.overrides]]
+module = [
+    "_pytest.*",
+    "apispec.*",
+    "apispec_webframeworks.*",
+    "connexion",
+    "dhosredis",
+    "environs",
+    "flask_log_request_id",
+    "flask_migrate",
+    "flask_sqlalchemy",
+    "healthcheck",
+    "jose",
+    "pika",
+    "prometheus_client",
+    "psycopg2",
+    "pytest",
+    "pytest_mock",
+    "redis",
+    "requests_mock.*",
+    "sqlalchemy.*",
+    "werkzeug.middleware.*"
+]
+ignore_missing_imports = true
+
+[tool.isort]
+profile = "black"
+known_third_party = ["_pytest", "apispec", "apispec_webframeworks", "connexion", "environs", "flask", "flask_log_request_id", "flask_sqlalchemy", "healthcheck", "jose", "marshmallow", "prometheus_client", "pytest", "pytest_mock", "requests", "requests_mock", "she_logging", "toml", "werkzeug", "yaml"]
+
+[tool.black]
+line-length = 88
+target-version = ["py39"]
+
+[tool.pytest.ini_options]
+filterwarnings = "ignore::DeprecationWarning:marshmallow.fields"

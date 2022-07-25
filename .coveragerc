@@ -1,0 +1,26 @@
+[paths]
+source =
+    flask_batteries_included/*
+
+[report]
+exclude_lines =
+  app.config
+
+omit =
+  */__init__.py
+  */__main__.py
+  flask_batteries_included/blueprint_monitoring/*
+  flask_batteries_included/helpers/logging.py
+  flask_batteries_included/helpers/metrics.py
+  flask_batteries_included/helpers/unittest_mode.py
+  flask_batteries_included/helpers/error_handler.py
+  flask_batteries_included/helpers/schema.py
+  flask_batteries_included/helpers/security/jwk.py
+  flask_batteries_included/autoapp.py
+  flask_batteries_included/config.py
+  flask_batteries_included/sqldb.py
+
+fail_under = 85
+
+show_missing = true
+skip_covered = true
