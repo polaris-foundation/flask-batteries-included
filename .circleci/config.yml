@@ -9,7 +9,6 @@ jobs:
           name: Set up tox tests
           command: |
             poetry self update
-            poetry config http-basic.sensynehealth ${GEMFURY_DOWNLOAD_KEY} ''
             pip install --upgrade tox
       - restore_cache:
           keys:

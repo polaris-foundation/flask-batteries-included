@@ -4,11 +4,7 @@ version = "3.1.2"
 description = "Batteries-included library for Polaris microservices using Flask"
 authors = ["Rob Grant <rob.grant@sensynehealth.com>"]
 keywords = ["Polaris", "Flask"]
-repository = "https://github.com/draysontechnologies/flask-batteries-included"
-
-[[tool.poetry.source]]
-name = "sensynehealth"
-url = "https://pypi.fury.io/sensynehealth/"
+repository = "https://github.com/polaris-foundation/flask-batteries-included"
 
 [tool.poetry.dependencies]
 python = "^3.8"
@@ -34,7 +30,6 @@ psycopg2-binary = { version = "2.*", optional = true }
 apispec-webframeworks = { version = "0.*", optional = true }
 connexion = {extras = ["swagger-ui"], version = "2.*", optional = true}
 
-
 [tool.poetry.dev-dependencies]
 bandit = "*"
 black = "*"
@@ -43,7 +38,6 @@ coverage = "*"
 isort = "*"
 mypy = "*"
 pytest = "*"
-pytest-dhos = { version = "*", extras=["fbi"] }
 pytest-flask = "*"
 pytest-mock = "*"
 requests-mock = "*"
