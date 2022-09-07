@@ -1,9 +1,9 @@
 [tool.poetry]
 name = "flask-batteries-included"
-version = "3.1.1"
-description = "Sensyne Health : Flask Batteries Included"
+version = "3.1.2"
+description = "Batteries-included library for Polaris microservices using Flask"
 authors = ["Rob Grant <rob.grant@sensynehealth.com>"]
-keywords = ["Flask"]
+keywords = ["Polaris", "Flask"]
 repository = "https://github.com/draysontechnologies/flask-batteries-included"
 
 [[tool.poetry.source]]

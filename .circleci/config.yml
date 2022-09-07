@@ -1,15 +1,10 @@
 version: 2.1
-orbs:
-  ms-teams: cloudradar-monitoring/ms-teams@0.0.1
 jobs:
   test:
     docker:
       - image: cimg/python:3.9
     steps:
       - checkout
-      - run:
-          name: Create coverage report dir
-          command: mkdir -p ${COVERAGE_REPORT_DIR}
       - run:
           name: Set up tox tests
           command: |
@@ -27,41 +22,34 @@ jobs:
           key: v1-poetry-deps-{{ checksum "poetry.lock" }}
           paths:
             - .tox
-      - persist_to_workspace:
-          root: coverage-reports
-          paths:
-            - coverage.xml
-  deploy-gemfury:
+  publish-pypi::
     docker:
       - image: cimg/python:3.9
     steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "c8:78:26:3d:47:7a:16:5a:8e:ae:8f:2b:3e:58:b0:da"
       - checkout
       - run:
-          name: Install deps
-          command: pip install --upgrade toml
-      - run:
-          name: Publish package to gemfury
-          command: .circleci/publish_gemfury.sh
+          name: Publish package to pypi
+          command: poetry publish --build --username __token__ --password $PYPI_API_TOKEN
       - run:
           name: Create git tag
-          command: git tag v$(python3 .circleci/parse_version.py)
+          command: pip install -U toml && git tag v$(python3 .circleci/parse_version.py)
       - run:
           name: Push git tag
           command: git push --tags
-      - ms-teams/report:
-          only_on_fail: true
-          webhook_url: ${MSTEAMS_NOTIFY_WEBHOOK_URL}
 workflows:
   version: 2
   build_test_deploy:
     jobs:
       - test:
-          context: engineering-build
-      - deploy-gemfury:
-          context: engineering-build
+          context: polaris-foundation
+      - publish-pypi:
+          context: polaris-foundation
           requires:
             - test
           filters:
             branches:
               only:
-                - master
+                - main

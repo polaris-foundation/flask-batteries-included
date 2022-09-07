@@ -1,3 +1,6 @@
+# 3.1.2
+- Moved hosting to public pypi
+
 # 3.1.1
 - Fixed typing in before_request() and after_request() hooks
 - Fixed use of removed helper class in apispec dependency
